@@ -11,7 +11,6 @@ class LogoutPage(BasePage):
     LOGIN_BUTTON_SELECTOR = '#login-button'
 
     def logout(self):
-        #self.navigate_to()
         self.wait_for_selector_and_click(self.BURGER_SELECTOR)
         self.wait_for_selector_and_click(self.LOGOUT_SELECTOR)
         self.assert_element_is_visible(self.LOGIN_BUTTON_SELECTOR)
