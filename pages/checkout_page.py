@@ -1,27 +1,30 @@
+from playwright.sync_api import Page
+from locators.checkout_page_locators import CheckoutPageLocators
 from pages.base_page import BasePage
 
 
 class CheckoutPage(BasePage):
-    CHECKOUT_BUTTON_SELECTOR = '[id="checkout"]'
-    FIRST_NAME_SELECTOR = '#first-name'
-    LAST_NAME_SELECTOR = '#last-name'
-    POSTAL_CODE_SELECTOR = 'input[name="postalCode"]'
-    CONTINUE_BUTTON_SELECTOR = '[id="continue"]'
-    FINISH_BUTTON_SELECTOR = '[data-test="finish"]'
 
-    def __init__(self, page):
+    def __init__(self, page: Page) -> None:
+        """Инициализирует объект CheckoutPage.page: Экземпляр страницы Playwright."""
         super().__init__(page)
-        self._endpoint = 'checkout-step-one.html'
+        self._endpoint: str = 'checkout-step-one.html'
 
-    def start_checkout(self):
-        self.wait_for_selector_and_click(self.CHECKOUT_BUTTON_SELECTOR)
-        self.assert_element_is_visible(self.FIRST_NAME_SELECTOR)
+    def start_checkout(self) -> None:
+        """Начинает процесс оформления заказа, проверяет наличие поля для ввода имени"""
+        self.wait_for_selector_and_click(CheckoutPageLocators.BUTTON_CHECKOUT)
+        self.assert_element_is_visible(CheckoutPageLocators.FIRST_NAME)
 
-    def fill_checkout_form(self, first_name, last_name, postal_code):
-        self.wait_for_selector_and_type(self.FIRST_NAME_SELECTOR, first_name, 100)
-        self.wait_for_selector_and_type(self.LAST_NAME_SELECTOR, last_name, 100)
-        self.wait_for_selector_and_type(self.POSTAL_CODE_SELECTOR, postal_code, 100)
-        self.assert_input_value(self.POSTAL_CODE_SELECTOR, postal_code)
-        self.wait_for_selector_and_click(self.CONTINUE_BUTTON_SELECTOR)
-        self.wait_for_selector_and_click(self.FINISH_BUTTON_SELECTOR)
+    def fill_personal_info(self, first_name: str, last_name: str, postal_code: str) -> None:
+        """Заполняет форму личных данных на странице оформления заказа.first_name: Имя пользователя. last_name: Фамилия пользователя. postal_code: Почтовый индекс."""
+        self.wait_for_selector_and_type(CheckoutPageLocators.FIRST_NAME, first_name, 100)
+        self.wait_for_selector_and_type(CheckoutPageLocators.LAST_NAME, last_name, 100)
+        self.wait_for_selector_and_type(CheckoutPageLocators.POSTAL_CODE, postal_code, 100)
+        self.assert_input_value(CheckoutPageLocators.POSTAL_CODE, postal_code)
+
+    def click_continue(self) -> None:
+        """Завершает оформление заказа, проверяет, что на странице присутствует сообщение об успешном оформлении заказа."""
+        self.wait_for_selector_and_click(CheckoutPageLocators.BUTTON_CONTINUE)
+        self.wait_for_selector_and_click(CheckoutPageLocators.BUTTON_FINISH)
         self.assert_text_present_on_page('Thank you for your order!')
+

@@ -14,5 +14,6 @@ def test_checkout_order(browser):
     login_page.login('standard_user', 'secret_sauce')
     inventory_page.add_first_item_to_cart()
     checkout_page.start_checkout()
-    checkout_page.fill_checkout_form('John', 'Doe', '12345')
+    checkout_page.fill_personal_info('John', 'Doe', '12345')
+    checkout_page.click_continue()
     logout_page.logout()
