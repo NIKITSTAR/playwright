@@ -9,6 +9,6 @@ def browser():
         browser = playwright.chromium.launch(headless=False)
         yield browser
     finally:
-        """Dыполнится при любом исходе, в том числе если произошли исключения в тестах"""
+        """Выполнится при любом исходе, в том числе если произошли исключения в тестах"""
         browser.close()
         playwright.stop()
