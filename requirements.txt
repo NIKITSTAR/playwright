@@ -1,5 +1,5 @@
-#playwright
-pytest==8.3.4
-allure-pytest==2.13.5
-python-dotenv==1.0.1
-allure-python-commons==2.13.5
+playwright~=1.50.0
+pytest~=8.3.4
+allure-pytest~=2.13.5
+python-dotenv~=1.0.1
+allure-python-commons~=2.13.5
