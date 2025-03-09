@@ -5,7 +5,7 @@ class BasePage:
     """Базовый URL"""
     __BASE_URL: str = 'https://www.saucedemo.com'
 
-    def __init__(self, page: Page) -> None:
+    def __init__(self, page: Page):
         """Инициализирует объект BasePage. page: Экземпляр Playwright Page, с которым будет вестись работа."""
         self.page: Page = page
         self._endpoint: str = ''
